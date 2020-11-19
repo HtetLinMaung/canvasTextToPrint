@@ -1,12 +1,15 @@
+import 'package:canvasToImage/print_screen.dart';
 import 'package:canvasToImage/store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
-import 'package:pdf/pdf.dart';
+// import 'package:pdf/widgets.dart' as pw;
+// import 'package:printing/printing.dart';
+// import 'package:pdf/pdf.dart';
+// import 'dart:io';
+// import 'package:image/image.dart';
 
 const kCanvasSize = 200.0;
 
@@ -23,41 +26,42 @@ class _OutputScreenState extends State<OutputScreen> {
   @override
   void initState() {
     super.initState();
+    final store = context.read<AppProvider>();
     generateImagefromText(
-      text: context.read<AppProvider>().input,
-      textColor: Colors.black,
+      text: store.input,
       width: 200,
       height: 200,
       style: TextStyle(
         color: Colors.black,
         fontSize: 12,
       ),
-    );
+    ).then((imgBytes) {
+      store.setImgBytes(imgBytes);
+    });
   }
 
-  Future<Uint8List> _generatePdf(
-      PdfPageFormat format, ByteData imgBytes) async {
-    final pdf = pw.Document();
-    final imageProvider = MemoryImage(Uint8List.view(imgBytes.buffer));
-    final PdfImage image = await pdfImageFromImageProvider(
-        pdf: pdf.document, image: imageProvider);
-    pdf.addPage(
-      pw.Page(
-        pageFormat: format,
-        build: (context) {
-          return pw.Center(
-            child: pw.Image(image),
-          );
-        },
-      ),
-    );
+  // Future<Uint8List> _generatePdf(
+  //     PdfPageFormat format, ByteData imgBytes) async {
+  //   final pdf = pw.Document();
+  //   final imageProvider = MemoryImage(Uint8List.view(imgBytes.buffer));
+  //   final PdfImage image = await pdfImageFromImageProvider(
+  //       pdf: pdf.document, image: imageProvider);
+  //   pdf.addPage(
+  //     pw.Page(
+  //       pageFormat: format,
+  //       build: (context) {
+  //         return pw.Center(
+  //           child: pw.Image(image),
+  //         );
+  //       },
+  //     ),
+  //   );
 
-    return pdf.save();
-  }
+  //   return pdf.save();
+  // }
 
   Future<ByteData> generateImagefromText({
     String text,
-    Color textColor,
     int width,
     int height,
     TextStyle style,
@@ -86,20 +90,41 @@ class _OutputScreenState extends State<OutputScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: Center(
-      //   child: imgBytes != null
-      //       ? Center(
-      //           child: Image.memory(
-      //           Uint8List.view(imgBytes.buffer),
-      //           width: kCanvasSize,
-      //           height: kCanvasSize,
-      //         ))
-      //       : Container(),
-      body: imgBytes != null
-          ? PdfPreview(
-              build: (format) => _generatePdf(format, imgBytes),
-            )
-          : Container(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 25.0),
+              child: Text(
+                'Preview Image',
+                style: TextStyle(
+                  fontSize: 32,
+                ),
+              ),
+            ),
+            imgBytes != null
+                ? Image.memory(
+                    Uint8List.view(imgBytes.buffer),
+                    width: kCanvasSize,
+                    height: kCanvasSize,
+                  )
+                : Container(),
+            Text(
+              'Please enable bluetooth, before printing',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, PrintScreen.routeName);
+              },
+              child: Text('print'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
