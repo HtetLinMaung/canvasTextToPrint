@@ -16,7 +16,6 @@ class PrintScreen extends StatefulWidget {
 class _PrintScreenState extends State<PrintScreen> {
   PrinterBluetoothManager printerManager = PrinterBluetoothManager();
   List<PrinterBluetooth> _devices = [];
-  bool _loading = false;
 
   @override
   void initState() {
