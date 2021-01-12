@@ -1,4 +1,6 @@
 import 'package:canvasToImage/print_screen.dart';
+import 'package:canvasToImage/print_screen2.dart';
+import 'package:canvasToImage/print_screen3.dart';
 import 'package:canvasToImage/store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -118,7 +120,7 @@ class _OutputScreenState extends State<OutputScreen> {
             ),
             RaisedButton(
               onPressed: () {
-                Navigator.pushNamed(context, PrintScreen.routeName);
+                Navigator.pushNamed(context, BluePrint.routeName);
               },
               child: Text('print'),
             ),
