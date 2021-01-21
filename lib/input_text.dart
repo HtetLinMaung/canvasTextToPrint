@@ -31,18 +31,45 @@ class _InputTextState extends State<InputText> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // RepaintBoundary(
+              //   key: _globalKey,
+              //   child: Container(
+              //     color: Colors.white,
+              //     padding: EdgeInsets.only(right: 65),
+              //     child: Text(
+              //       _controller.text,
+              //       style: TextStyle(
+              //         backgroundColor: Colors.white,
+              //         color: Colors.black,
+              //       ),
+              //       overflow: TextOverflow.clip,
+              //     ),
+              //   ),
+              // ),
               RepaintBoundary(
                 key: _globalKey,
                 child: Container(
                   color: Colors.white,
                   padding: EdgeInsets.only(right: 65),
-                  child: Text(
-                    _controller.text,
-                    style: TextStyle(
-                      backgroundColor: Colors.white,
-                      color: Colors.black,
-                    ),
-                    overflow: TextOverflow.clip,
+                  child: Column(
+                    children: [
+                      Text(
+                        'SP Bakery',
+                        style: TextStyle(
+                          backgroundColor: Colors.white,
+                          color: Colors.black,
+                        ),
+                        overflow: TextOverflow.clip,
+                      ),
+                      Text(
+                        'Store : Htate Tan (CATZ)',
+                        style: TextStyle(
+                          backgroundColor: Colors.white,
+                          color: Colors.black,
+                        ),
+                        overflow: TextOverflow.clip,
+                      ),
+                    ],
                   ),
                 ),
               ),
