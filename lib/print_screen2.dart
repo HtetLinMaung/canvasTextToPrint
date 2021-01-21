@@ -68,7 +68,7 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     bluetoothPrint.connect(device)
+//     // bluetoothPrint.connect(device)
 //     return MaterialApp(
 //       home: Scaffold(
 //         appBar: AppBar(

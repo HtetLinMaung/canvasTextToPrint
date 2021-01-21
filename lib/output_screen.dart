@@ -31,11 +31,12 @@ class _OutputScreenState extends State<OutputScreen> {
     final store = context.read<AppProvider>();
     generateImagefromText(
       text: store.input,
-      width: 200,
-      height: 200,
+      width: 100,
+      height: 100,
       style: TextStyle(
         color: Colors.black,
-        fontSize: 12,
+        fontSize: 16,
+        backgroundColor: Colors.white,
       ),
     ).then((imgBytes) {
       store.setImgBytes(imgBytes);

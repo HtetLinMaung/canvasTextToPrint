@@ -186,14 +186,14 @@ class _BluePrintState extends State<BluePrint> {
     // 2- ESC_ALIGN_RIGHT
     bluetooth.isConnected.then((isConnected) {
       if (isConnected) {
-        bluetooth.printCustom("HEADER", 30, 1);
+        // bluetooth.printCustom("ျိ်ျိ်ျ", 30, 1);
         bluetooth.printNewLine();
-        bluetooth.printCustom(
-          context.read<AppProvider>().input,
-          400,
-          1,
-        );
+        // bluetooth.printCustom(context.read<AppProvider>().input, 400, 1,
+        //     charset: "utf8");
 
+        // bluetooth.printImageBytes(
+        //     context.read<AppProvider>().imgBytes.buffer.asUint8List());
+        bluetooth.printImageBytes(context.read<AppProvider>().imgBytes2);
         // bluetooth.printImage(pathImage);
         // bluetooth.printNewLine();
 
